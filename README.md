@@ -155,3 +155,37 @@ public int[] reOrderArray(int[] array)
     return oddList.ToArray();
 }
 ```
+## 从尾到头打印链表
+输入一个链表，从尾到头打印链表每个节点的值。
+[牛客](https://www.nowcoder.com/practice/d0267f7f55b3412ba93bd35cfa8e8035?tpId=13&tqId=11156&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+```cs
+// 返回从尾到头的列表值序列
+public List<int> printListFromTailToHead(ListNode listNode)
+{
+    Stack<int> result = new Stack<int>();
+
+    ListNode currentNode = listNode;
+    while (currentNode != null)
+    {
+        result.Push(currentNode.val);
+        currentNode = currentNode.next;
+    }
+
+    return result.ToList();
+}
+```
+递归实现
+```cs
+// 返回从尾到头的列表值序列
+List<int> list1 = new List<int>();
+public List<int> printListFromTailToHeadV2(ListNode listNode)
+{
+    if (listNode != null)
+    {
+        printListFromTailToHeadV2(listNode.next);
+        list1.Add(listNode.val);
+    }
+
+    return list1;
+}
+```
