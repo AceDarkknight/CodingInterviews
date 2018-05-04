@@ -1,5 +1,5 @@
 # CodingInterviews
-网上大部分《剑指offer》的实现都是基于 Java、python或者c++的，笔者也试着用 C# 实现一下。
+网上大部分《剑指offer》的实现都是基于 Java、python或者c++的，笔者也试着用 C# 实现一下。所有代码均通过牛客测试。
 
 ## 斐波那契数列
 #### 题目描述
