@@ -189,3 +189,31 @@ public List<int> printListFromTailToHeadV2(ListNode listNode)
     return list1;
 }
 ```
+## 用两个栈实现队列
+用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。  
+[牛客](https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=13&tqId=11158&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+```cs
+Stack<int> inStack = new Stack<int>();
+Stack<int> outStack = new Stack<int>();
+public void push(int node)
+{
+    this.inStack.Push(node);
+}
+
+public int pop()
+{
+    if (this.outStack.Count != 0)
+    {
+        return this.outStack.Pop();
+    }
+
+    // inStack pop 后，长度发生变化，直接使用 i<inStack.Count 会得到错误结果，需要使用 length 代表初始长度。
+    int length = this.inStack.Count;
+    for (int i = 0; i < length; i++)
+    {
+        this.outStack.Push(this.inStack.Pop());
+    }
+
+    return this.outStack.Pop();
+}
+```
