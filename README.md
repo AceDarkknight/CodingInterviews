@@ -1,5 +1,4 @@
-# CodingInterviews
-网上大部分《剑指offer》的实现都是基于 Java、python或者c++的，笔者也试着用 C# 实现一下。所有代码均通过牛客测试。
+网上大部分《剑指offer》的实现都是基于 Java、python或者c++的，笔者也试着用 C# 实现一下。所有代码均通过牛客网测试。
 
 ## 斐波那契数列
 #### 题目描述
@@ -87,7 +86,7 @@ public int jumpFloorII(int number)
 ```
 递归实现
 ```cs
-public int jumpFloorIIV2(int number)
+public int jumpFloorII(int number)
 {
     if (number <= 0)
     {
@@ -99,7 +98,7 @@ public int jumpFloorIIV2(int number)
         return number;
     }
 
-    return 2 * jumpFloorIIV2(number - 1);
+    return 2 * jumpFloorII(number - 1);
 }
 ```
 ## 矩形覆盖
@@ -156,7 +155,7 @@ public int[] reOrderArray(int[] array)
 }
 ```
 ## 从尾到头打印链表
-输入一个链表，从尾到头打印链表每个节点的值。  
+输入一个链表，从尾到头打印链表每个节点的值。
 [牛客](https://www.nowcoder.com/practice/d0267f7f55b3412ba93bd35cfa8e8035?tpId=13&tqId=11156&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 ```cs
 // 返回从尾到头的列表值序列
@@ -178,11 +177,11 @@ public List<int> printListFromTailToHead(ListNode listNode)
 ```cs
 // 返回从尾到头的列表值序列
 List<int> list1 = new List<int>();
-public List<int> printListFromTailToHeadV2(ListNode listNode)
+public List<int> printListFromTailToHead(ListNode listNode)
 {
     if (listNode != null)
     {
-        printListFromTailToHeadV2(listNode.next);
+        printListFromTailToHead(listNode.next);
         list1.Add(listNode.val);
     }
 
@@ -215,5 +214,71 @@ public int pop()
     }
 
     return this.outStack.Pop();
+}
+```
+## 链表中倒数第k个结点
+输入一个链表，输出该链表中倒数第k个结点。
+[牛客](https://www.nowcoder.com/practice/529d3ae5a407492994ad2a246518148a?tpId=13&tqId=11167&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+```cs
+// 使用循环数组。
+public ListNode FindKthToTail(ListNode head, int k)
+{
+    if (head == null || k <= 0)
+    {
+        return null;
+    }
+
+    // 定义一个循环数组。
+    ListNode[] temp = new ListNode[k];
+    ListNode currentNode = head;
+    int index = 0;
+    while (currentNode != null)
+    {
+        // 通过把元素循环放入数组不断更新数组。
+        index = (index + k) % k;
+        temp[index] = currentNode;
+        currentNode = currentNode.next;
+        // 指向下一个元素。
+        index++;
+    }
+
+    return temp[(index + k) % k];
+}
+```
+空间复杂度更低的一种解法：
+```cs
+// 使用快慢两个指针。
+public ListNode FindKthToTail(ListNode head, int k)
+{
+    if (head == null || k <= 0)
+    {
+        return null;
+    }
+    
+    // 快指针先到达k-1的位置。
+    ListNode fastNode = head;
+    for (int i = 0; i < k - 1; i++)
+    {
+        if (fastNode != null)
+        {
+            fastNode = fastNode.next;
+        }
+    }
+    
+    // k大于链表长度时返回null。
+    if (fastNode == null)
+    {
+        return null;
+    }
+
+    // 慢指针从头出发。
+    ListNode slowNode = head;
+    while (fastNode.next != null)
+    {
+        slowNode = slowNode.next;
+        fastNode = fastNode.next;
+    }
+
+    return slowNode;
 }
 ```
