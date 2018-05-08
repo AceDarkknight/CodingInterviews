@@ -304,3 +304,64 @@ public int minNumberInRotateArray(int[] rotateArray)
     return rotateArray[0];
 }
 ```
+## 合并两个排序的链表
+输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。  
+[牛客](https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337?tpId=13&tqId=11169&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking)
+```cs
+public ListNode Merge(ListNode pHead1, ListNode pHead2)
+{
+    if (pHead1 == null)
+    {
+        return pHead2;
+    }
+
+    if (pHead2 == null)
+    {
+        return pHead1;
+    }
+
+    // 处理头结点。
+    ListNode temp = null;
+    if (pHead1.val >= pHead2.val)
+    {
+        temp = pHead2;
+        pHead2 = pHead2.next;
+    }
+    else
+    {
+        temp = pHead1;
+        pHead1 = pHead1.next;
+    }
+
+    // 保存新链表的头结点。
+    ListNode newHead = temp;
+
+    // 处理剩余节点。
+    while (pHead1 != null && pHead2 != null)
+    {
+        if (pHead1.val >= pHead2.val)
+        {
+            temp.next = pHead2;
+            pHead2 = pHead2.next;
+        }
+        else
+        {
+            temp.next = pHead1;
+            pHead1 = pHead1.next;
+        }
+
+        temp = temp.next;
+    }
+
+    if (pHead1 == null)
+    {
+        temp.next = pHead2;
+    }
+    else if (pHead2 == null)
+    {
+        temp.next = pHead1;
+    }
+
+    return newHead;
+}
+```
