@@ -365,3 +365,62 @@ public ListNode Merge(ListNode pHead1, ListNode pHead2)
     return newHead;
 }
 ```
+## 数组中重复的数字
+在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。  
+[牛客](https://www.nowcoder.com/practice/623a5ac0ea5b4e5f95552655361ae0a8?tpId=13&tqId=11203&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+```cs
+public bool duplicate(int[] numbers, int[] duplication)
+{
+    if (numbers == null || numbers.Length <= 0)
+    {
+        return false;
+    }
+
+    for (int i = 0; i < numbers.Length; i++)
+    {
+        while (numbers[i] != i)
+        {
+            if (numbers[i] == numbers[numbers[i]])
+            {
+                duplication[0] = numbers[i];
+                return true;
+            }
+
+            Swap(numbers, i, numbers[i]);
+        }
+    }
+
+    return false;
+}
+
+public void Swap(int[] numbers, int i,int j)
+{
+    int temp = numbers[i];
+    numbers[i] = numbers[j];
+    numbers[j] = temp;
+}
+```
+另一种实现
+```cs
+public bool duplicateV2(int[] numbers, int[] duplication)
+{
+    if (numbers == null || numbers.Length <= 0)
+    {
+        return false;
+    }
+
+    bool[] t = new bool[numbers.Length];
+    for(int i = 0; i < numbers.Length; i++)
+    {
+        if (t[numbers[i]])
+        {
+            duplication[0] = numbers[i];
+            return true;
+        }
+
+        t[numbers[i]] = true;
+    }
+
+    return false;
+}
+```
