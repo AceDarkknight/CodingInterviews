@@ -424,3 +424,82 @@ public bool duplicateV2(int[] numbers, int[] duplication)
     return false;
 }
 ```
+## 构建乘积数组
+给定一个数组A[0,1,...,n-1],请构建一个数组B[0,1,...,n-1],其中B中的元素B[i]=A[0]\*A[1]*...\*A[i-1]\*A[i+1]\*...\*A[n-1]。不能使用除法。  
+[牛客](https://www.nowcoder.com/practice/94a4d381a68b47b7a8bed86f2975db46?tpId=13&tqId=11204&tPage=3&rp=3&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking)
+```cs
+public int[] multiply(int[] A)
+{
+    if (A == null)
+    {
+        return null;
+    }
+
+    int[] B = new int[A.Length];
+    int t = 1;
+    // 先计算分割点前面的乘积。
+    for (int i = 0; i < A.Length; i++)
+    {
+        B[i] = t;
+        t *= A[i];
+    }
+
+    t = 1;
+    // 再计算分割点后面的乘积。
+    for(int i = A.Length - 1; i >= 0; i--)
+    {
+        B[i] *= t;
+        t *= A[i];
+    }
+
+    return B;
+}
+```
+## 二叉树的镜像
+```cs
+操作给定的二叉树，将其变换为源二叉树的镜像。
+二叉树的镜像定义：源二叉树 
+	    8
+	   /  \
+	  6   10
+	 / \  / \
+	5  7 9 11
+	镜像二叉树
+	    8
+	   /  \
+	  10   6
+	 / \  / \
+	11 9 7  5
+```
+[牛客](https://www.nowcoder.com/practice/564f4c26aa584921bc75623e48ca3011?tpId=13&tqId=11171&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+```cs
+public class TreeNode
+{
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+    public TreeNode(int x)
+    {
+        val = x;
+    }
+}
+public TreeNode Mirror(TreeNode root)
+{
+    if (root == null)
+    {
+        return root;
+    }
+
+    SwapTreeNode(root);
+    Mirror(root.left);
+    Mirror(root.right);
+    return root;
+}
+
+public static void SwapTreeNode(TreeNode node)
+{
+    TreeNode temp = node.left;
+    node.left = node.right;
+    node.right = temp;
+}
+```
