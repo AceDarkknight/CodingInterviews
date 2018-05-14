@@ -503,3 +503,43 @@ public static void SwapTreeNode(TreeNode node)
     node.right = temp;
 }
 ```
+## 包含min函数的栈
+定义栈的数据结构，请在该类型中实现一个能够得到栈最小元素的min函数。  
+[牛客](https://www.nowcoder.com/practice/4c776177d2c04c2494f2555c9fcc1e49?tpId=13&tqId=11173&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+```cs
+private int minNode = int.MaxValue;
+// 用两个栈，一个保存所有元素，另一个保存最小的元素，其中的元素从上到下递增。
+Stack<int> minStack = new Stack<int>();
+Stack<int> dataStack = new Stack<int>();
+
+public void push(int node)
+{
+    this.dataStack.Push(node);
+
+    // 保存最小元素。
+    if (this.minNode >= node)
+    {
+        minStack.Push(node);
+        minNode = node;
+    }
+}
+public void pop()
+{
+    int node = this.dataStack.Pop();
+
+    // 如果比最小元素小，就弹出最小元素。
+    if (node == this.minNode)
+    {
+        this.minStack.Pop();
+        this.minNode = this.minStack.Peek();
+    }
+}
+public int top()
+{
+    return this.dataStack.Peek();
+}
+public int min()
+{
+    return this.minNode;
+}
+```
