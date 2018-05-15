@@ -543,3 +543,39 @@ public int min()
     return this.minNode;
 }
 ```
+## 栈的压入、弹出序列
+输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4，5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）  
+[牛客](https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&tqId=11174&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking)
+```cs
+public bool IsPopOrder(int[] pushV, int[] popV)
+{
+    if (pushV.Length != popV.Length || pushV.Length == 0)
+    {
+        return false;
+    }
+
+    // 用辅助栈模拟入栈出栈操作。
+    Stack<int> temp = new Stack<int>();
+    int i = 0;
+    int j = 0;
+    for (; i < pushV.Length; i++)
+    {
+        temp.Push(pushV[i]);
+        if (pushV[i] == popV[j])
+        {
+            temp.Pop();
+            j++;
+        }
+    }
+
+    for (; j < popV.Length; j++)
+    {
+        if (popV[j] != temp.Pop())
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+```
