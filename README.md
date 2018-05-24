@@ -602,3 +602,24 @@ public string replaceSpace(string str)
     return sb.ToString();
 }
 ```
+## 求1+2+3+...+n
+求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。  
+[牛客](https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1?tpId=13&tqId=11200&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking&tPage=3)
+```cs
+public int Sum_Solution(int n)
+{
+    //结果是等差数列求和(n+1)*n/2，先定义一个[n,n+1]的二维数组，则数组长度是n(n+1)，再进行一次位移就能得到结果。
+    bool[,] a = new bool[n, n + 1];
+    return a.Length >> 1;
+}
+```
+另一种解法
+```cs
+public int Sum_Solution(int n)
+{
+    int result = n;
+    // 通过 && 递归的结束，当 result = 0 时递归结束。
+    bool t = (result > 0) && ((result += Sum_Solution(n - 1)) > 0);
+    return result;
+}
+```
