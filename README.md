@@ -155,7 +155,7 @@ public int[] reOrderArray(int[] array)
 }
 ```
 ## 从尾到头打印链表
-输入一个链表，从尾到头打印链表每个节点的值。
+输入一个链表，从尾到头打印链表每个节点的值。  
 [牛客](https://www.nowcoder.com/practice/d0267f7f55b3412ba93bd35cfa8e8035?tpId=13&tqId=11156&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 ```cs
 // 返回从尾到头的列表值序列
@@ -621,5 +621,26 @@ public int Sum_Solution(int n)
     // 通过 && 递归的结束，当 result = 0 时递归结束。
     bool t = (result > 0) && ((result += Sum_Solution(n - 1)) > 0);
     return result;
+}
+```
+## 不用加减乘除做加法
+写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号  
+[牛客](https://www.nowcoder.com/practice/59ac416b4b944300b617d4f7f111b215?tpId=13&tqId=11201&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking&tPage=3)
+```cs
+public int Add(int num1, int num2)
+{
+    int a = num1 ^ num2;
+    int b = (num1 & num2) << 1;
+
+    // 循环直到不需要进位。
+    while ((a & b) != 0)
+    {
+        num1 = a ^ b;
+        num2 = (a & b) << 1;
+        a = num1;
+        b = num2;
+    }
+
+    return a | b;
 }
 ```
