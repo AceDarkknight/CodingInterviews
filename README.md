@@ -666,3 +666,32 @@ public int NumberOf1(int n)
     return result;
 }
 ```
+## 反转链表
+输入一个链表，反转链表后，输出链表的所有元素。
+```cs
+public ListNode ReverseList(ListNode pHead)
+{
+    if (pHead == null || pHead.next == null)
+    {
+        return pHead;
+    }
+
+    ListNode secondNode = pHead.next;
+    ListNode currentNode = pHead.next;
+    ListNode nextNode = currentNode.next;
+
+    while (nextNode != null)
+    {
+        currentNode.next = pHead.next;
+        pHead.next = currentNode;
+        currentNode = nextNode;
+        nextNode = nextNode.next;
+    }
+
+    currentNode.next = pHead.next;
+    secondNode.next = pHead;
+    pHead.next = null;
+
+    return currentNode;
+}
+```
