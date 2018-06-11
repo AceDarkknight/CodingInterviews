@@ -806,3 +806,18 @@ public int FindGreatestSumOfSubArray(int[] array)
     return result;
 }
 ```
+## 平衡二叉树
+输入一棵二叉树，判断该二叉树是否是平衡二叉树。  
+[牛客](https://www.nowcoder.com/practice/8b3b95850edb4115918ecebdf1b4d222?tpId=13&tqId=11192&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+```cs
+public bool IsBalanced_Solution(TreeNode pRoot)
+{
+    if (pRoot == null)
+    {
+        return true;
+    }
+
+    // 借助之前求树深度的函数。
+    return Math.Abs(TreeDepth(pRoot.left) - TreeDepth(pRoot.right)) <= 1;
+}
+```
